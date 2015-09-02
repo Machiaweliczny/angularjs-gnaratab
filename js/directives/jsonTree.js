@@ -9,6 +9,9 @@ angular.module('panelApp').directive('batJsonTree', function($compile) {
     link: function (scope, element, attrs) {
       // this is more complicated then it should be
       // see: https://github.com/angular/angular.js/issues/898
+      var sourcePath = function(object){
+        return '<div class="scope-branch"> sourcePath: ' + object.this.sourcePath + '</div>';
+      }
 
       var buildDom = function (object) {
         var html = '';
@@ -57,7 +60,8 @@ angular.module('panelApp').directive('batJsonTree', function($compile) {
         } else if (isEmpty(newVal)) {
           element.html('<pre>{ This scope has no models }</pre>');
         } else {
-          element.html('<pre>' + buildDom(newVal) + '</pre>');
+          window.currentSourcePath = object && object.this.sourcePath;
+          element.html('<pre>' + sourcePath(newVal) + buildDom(newVal) + '</pre>');
         }
       });
     }
