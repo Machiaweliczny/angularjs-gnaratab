@@ -39,7 +39,7 @@ panels.elements.createSidebarPane(
 
 // Angular panel
 var angularPanel = panels.create(
-  "AngularJS",
+  "AngularJS1",
   "img/angular.png",
   "panel.html"
 );

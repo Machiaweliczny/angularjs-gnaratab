@@ -567,10 +567,14 @@ var inject = function () {
               currentElt = elt;
 
               var models = getScopeLocals(scope);
+              // add sourcePath
+              models._sourcePath = scope.this.sourcePath;
+              window.currentSourcePath = scope.this.sourcePath
               popoverContent.children().remove();
               if (isEmpty(models)) {
                 popoverContent.append(angular.element('<i>This scope has no models</i>'));
               } else {
+                // popoverContent.append("<div> sourcePath: " + scope.this.sourcePath + "</div>");
                 popoverContent.append(renderTree(models));
               }
 
@@ -882,6 +886,13 @@ var inject = function () {
   }()));
 };
 
+// Inject keyboard binding to body
+document.onkeydown = function (evt) {
+  var e = evt || window.event;
+  if(e.keyCode == 67){
+    window.prompt("Copy to clipboard: Ctrl+C, Enter", window.currentSourcePath);
+  }
+};
 // only inject if cookie is set
 if (document.cookie.indexOf('__ngDebug=true') != -1) {
   document.addEventListener('DOMContentLoaded', inject);

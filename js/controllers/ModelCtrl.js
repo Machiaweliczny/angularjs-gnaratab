@@ -3,6 +3,9 @@ angular.module('panelApp').controller('ModelCtrl', function ModelCtrl($scope, ap
   $scope.inspect = function () {
     appContext.inspect(this.val.id);
   };
+  $scope.getControllerName = function(){
+    appContext.getScope(this.val.id)._controllerName;
+  }
   $scope.select = function () {
     $scope.selectedScope = this.val.id;
   };

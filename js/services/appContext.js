@@ -22,7 +22,7 @@ angular.module('panelApp').factory('appContext', function (chromeExtension) {
           "(function (elt) {" +
             "var $scope = window.angular.element(elt).scope();" +
             "if ($scope.$id === args.scopeId) {" +
-              "(" + args.fn + "($scope, elt, args));" +
+              "return (" + args.fn + "($scope, elt, args));" +
             "}" +
           "}(elts[i]));" +
         "}" +
@@ -41,6 +41,11 @@ angular.module('panelApp').factory('appContext', function (chromeExtension) {
       });
     },
 
+    getScope: function (scopeId) {
+      this.executeOnScope(scopeId, function (scope, elt) {
+        // Do nothing really
+      });
+    },
     // Settings
     // --------
 

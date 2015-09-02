@@ -9,7 +9,7 @@ angular.module('panelApp').directive('batScopeTree', function ($compile) {
   var template =
     '<div class="scope-branch">' +
       '<a href ng-click="inspect()">&lt;</a> ' +
-      '<a href ng-click="select()" ng-class="{selected: selectedScope == val.id}">{{getScope(val.id)._controllerName || "Scope"}} ({{val.id}})</a>' +
+      '<a href ng-click="select()" ng-class="{selected: selectedScope == val.id}">{{getControllerName() || "Scope"}} ({{val.id}})</a>' +
       '<div ng-repeat="child in val.children">' +
         '<bat-scope-tree ' +
           'val="child" ' +
