@@ -567,9 +567,8 @@ var inject = function () {
               currentElt = elt;
 
               var models = getScopeLocals(scope);
-              // add sourcePath
-              models._sourcePath = scope.this.sourcePath;
-              window.currentSourcePath = scope.this.sourcePath
+              sourcePath = scope._sourcePath;
+              window.currentSourcePath = sourcePath;
               popoverContent.children().remove();
               if (isEmpty(models)) {
                 popoverContent.append(angular.element('<i>This scope has no models</i>'));
@@ -886,13 +885,19 @@ var inject = function () {
   }()));
 };
 
-// Inject keyboard binding to body
-document.onkeydown = function (evt) {
-  var e = evt || window.event;
-  if(e.keyCode == 67){
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", window.currentSourcePath);
-  }
-};
+function injectScript(script) {
+    var s = document.createElement('script');
+    s.setAttribute('type', 'text/javascript');
+    s.text = script;
+    (document.head||document.documentElement).appendChild(s);
+}
+copyToClipboardScript = 'document.onkeydown = function (evt) {' +
+  'var e = evt || window.event;' +
+  'if( window.location.href.match(/\\.dev\\//) && window.currentSourcePath && e.keyCode == 67){'+
+    'window.prompt("Copy to clipboard: Ctrl+C, Enter", window.currentSourcePath)' +
+   '}}';
+
+injectScript(copyToClipboardScript);
 // only inject if cookie is set
 if (document.cookie.indexOf('__ngDebug=true') != -1) {
   document.addEventListener('DOMContentLoaded', inject);
