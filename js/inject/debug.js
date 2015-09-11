@@ -894,7 +894,14 @@ function injectScript(script) {
 copyToClipboardScript = 'document.onkeydown = function (evt) {' +
   'var e = evt || window.event;' +
   'if( window.location.href.match(/\\.dev\\//) && window.currentSourcePath && e.keyCode == 67){'+
-    'window.prompt("Copy to clipboard: Ctrl+C, Enter", window.currentSourcePath)' +
+    'var c = document.createElement("input");' +
+    'c.value = window.currentSourcePath;' +
+    'c.style.display = "none";' +
+    '(document.body).appendChild(c);' +
+    'c.focus(); c.select();' +
+    'console.log("skopiowalem", c.value);' +
+    'document.execCommand("copy");' +
+    'document.body.removeChild(c);' +
    '}}';
 
 injectScript(copyToClipboardScript);
