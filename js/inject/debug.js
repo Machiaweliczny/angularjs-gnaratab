@@ -896,9 +896,8 @@ copyToClipboardScript = 'document.onkeydown = function (evt) {' +
   'if( window.location.href.match(/\\.dev\\//) && window.currentSourcePath && e.keyCode == 67){'+
     'var c = document.createElement("input");' +
     'c.value = window.currentSourcePath;' +
-    'c.style.display = "none";' +
     '(document.body).appendChild(c);' +
-    'c.focus(); c.select();' +
+    'c.select();' +
     'console.log("skopiowalem", c.value);' +
     'document.execCommand("copy");' +
     'document.body.removeChild(c);' +
