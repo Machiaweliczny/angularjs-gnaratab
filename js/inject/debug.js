@@ -356,7 +356,7 @@ var inject = function () {
               '<div style="position: relative" style="min-width: 300px; min-height: 100px;">' +
                 '<div style="min-width: 100px; min-height: 50px; padding: 5px;"><pre>{ Please select a scope }</pre></div>' +
                 '<button style="position: absolute; top: -15px; left: -15px; cursor: move;">⇱</button>' +
-                '<button style="position: absolute; top: -15px; left: 10px;">+</button>' +
+                '<button id="batinspection" style="position: absolute; top: -15px; left: 10px;">+</button>' +
                 '<button style="position: absolute; top: -15px; right: -15px;">x</button>' +
                 '<style>' +
                   '.ng-scope.bat-selected { border: 1px solid red; } ' +
@@ -401,6 +401,9 @@ var inject = function () {
           });
 
           selectElt.bind('click', bindSelectScope);
+          setTimeout(function(){
+            document.getElementById("batinspection").click();
+          }, 200);
 
           var selecting = false;
           function bindSelectScope () {
